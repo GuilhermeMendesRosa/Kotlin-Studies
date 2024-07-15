@@ -3,12 +3,15 @@ package br.com.alura.alugames.principal
 import br.com.alura.alugames.modelo.Gamer
 import br.com.alura.alugames.modelo.Jogo
 import br.com.alura.alugames.servicos.ConsumoAPI
+import transformarEmIdade
 import java.util.*
 
 fun main() {
     var leitura = Scanner(System.`in`)
     val gamer = Gamer.criarGamer(leitura)
     println("Cadastro concluído com sucesso. Dados do Gamer: $gamer")
+
+    println("Idade do gamer: ${gamer.dataNascimento?.transformarEmIdade()}")
     do {
         println("Digite um código de jogo para buscar: ")
         var id = leitura.nextLine()
@@ -48,6 +51,36 @@ fun main() {
 
     println("Jogos bucados: ")
     println(gamer.jogosBuscados)
+
+    println()
+    println("Jogos ordenados por titulo:")
+    gamer.jogosBuscados.sortBy {
+        it?.titulo
+    }
+
+    gamer.jogosBuscados.forEach {
+        println("Titulo: " + it?.titulo)
+    }
+
+    val jogosFiltrados = gamer.jogosBuscados.filter {
+        it?.titulo?.contains("batman", true) ?: false
+    }
+
+    println("Jogos filtrados: ")
+    println(jogosFiltrados)
+
+    println("Deseja excluir algum item da lista original? S/N")
+    val opcao = leitura.nextLine()
+
+    if (opcao.equals("s", true)) {
+        println(gamer.jogosBuscados)
+        val posicao = leitura.nextInt()
+        gamer.jogosBuscados.removeAt(posicao)
+    }
+
+    println("\n Lista atualizada: ")
+    println(gamer.jogosBuscados)
+
     println("Busca finalizada com sucesso!")
 }
 

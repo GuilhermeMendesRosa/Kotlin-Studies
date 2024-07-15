@@ -14,7 +14,7 @@ data class Gamer(var nome: String, var email: String) {
         }
     var idInterno: String? = null
         private set
-    val jogosBuscados = mutableSetOf<Jogo?>()
+    val jogosBuscados = mutableListOf<Jogo?>()
 
     init {
         validarEmail()
