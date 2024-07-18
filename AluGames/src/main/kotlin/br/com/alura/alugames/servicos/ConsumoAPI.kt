@@ -3,6 +3,7 @@ package br.com.alura.alugames.servicos
 import br.com.alura.alugames.modelo.Gamer
 import br.com.alura.alugames.modelo.InfoGamerJSON
 import br.com.alura.alugames.modelo.InfoJogo
+import br.com.alura.alugames.modelo.Jogo
 import br.com.alura.alugames.utiliario.toGamer
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -33,6 +34,17 @@ class ConsumoAPI {
         }
 
         return gamers
+    }
+
+    fun buscaJogos(): List<Jogo> {
+        val endereco = "https://raw.githubusercontent.com/jeniblodev/arquivosJson/main/jogos.json"
+
+        val json = doGet(endereco)
+
+        val tipo = object : TypeToken<List<Jogo>>() {}.type
+        var jogos: List<Jogo> = Gson().fromJson<List<Jogo>>(json, tipo)
+
+        return jogos
     }
 
     private fun doGet(endereco: String): String? {
