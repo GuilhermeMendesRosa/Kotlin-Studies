@@ -3,44 +3,39 @@ package br.com.alura.alugames.principal
 import br.com.alura.alugames.modelo.Periodo
 import br.com.alura.alugames.modelo.PlanoAssinatura
 import br.com.alura.alugames.servicos.ConsumoAPI
+import com.google.gson.GsonBuilder
+import java.io.File
 import java.time.LocalDate
 
 fun main() {
     val consumo = ConsumoAPI()
     val listaGamers = consumo.buscaGamers()
-    val listaJogos = consumo.buscaJogos()
-
-    val gamerCaroline = listaGamers.get(3)
-    val jogoResidentVillage = listaJogos.get(10)
-
-    val periodo = Periodo(LocalDate.now(), LocalDate.now().plusDays(7))
-    val aluguel = gamerCaroline.alugaJogo(jogoResidentVillage, periodo)
-
-//    print(aluguel)
-
-    var jogoSpider = listaJogos.get(13)
-    var jogoTLOU = listaJogos.get(2)
-
-//    gamerCaroline.alugaJogo(jogoSpider, periodo)
-//    gamerCaroline.alugaJogo(jogoTLOU, periodo)
-//
-//    println()
-//    println("Jogos alugados por: ${gamerCaroline.nome}")
-//    println(gamerCaroline.jogosAlugados)
-
+    val listaJogoJson = consumo.buscaJogos()
     val gamerCamila = listaGamers.get(5)
-    gamerCamila.plano = PlanoAssinatura("PRATA", 9.90, 3, 0.5)
 
-    gamerCamila.alugaJogo(jogoResidentVillage, periodo)
-    gamerCamila.alugaJogo(jogoSpider, periodo)
-    gamerCamila.alugaJogo(jogoTLOU, periodo)
-    gamerCamila.alugaJogo(jogoTLOU, periodo)
+    val jogoResidentVillage = listaJogoJson.get(10)
+    val jogoSpider = listaJogoJson.get(13)
+    val jogoTheLastOfUs = listaJogoJson.get(2)
+    val jogoDandara = listaJogoJson.get(5)
+    val jogoAssassins = listaJogoJson.get(4)
+    val jogoCyber = listaJogoJson.get(6)
+    val jogoGod = listaJogoJson.get(7)
+    val jogoSkyrim = listaJogoJson.get(18)
 
-    gamerCamila.recomendar(10)
-    gamerCamila.recomendar(7)
+    gamerCamila.recomendarJogo(jogoResidentVillage, 7)
+    gamerCamila.recomendarJogo(jogoTheLastOfUs, 10)
+    gamerCamila.recomendarJogo(jogoAssassins, 8)
+    gamerCamila.recomendarJogo(jogoCyber, 7)
+    gamerCamila.recomendarJogo(jogoGod, 10)
+    gamerCamila.recomendarJogo(jogoDandara, 8)
+    gamerCamila.recomendarJogo(jogoSkyrim, 8)
+    gamerCamila.recomendarJogo(jogoSpider, 6)
 
-    println(gamerCamila)
+    val gson = GsonBuilder().excludeFieldsWithoutExposeAnnotation().create()
+    val serializacao = gson.toJson(gamerCamila.jogosRecomendados)
 
-    var aluguel1 = gamerCamila.alugaJogo(jogoResidentVillage, periodo)
-    print(aluguel1)
+    val arquivo = File("jogosRecomendados.json")
+    arquivo.writeText(serializacao)
+    println(arquivo.absolutePath)
+
 }
