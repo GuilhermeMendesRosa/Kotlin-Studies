@@ -29,7 +29,7 @@ fun main() {
 //    println(gamerCaroline.jogosAlugados)
 
     val gamerCamila = listaGamers.get(5)
-    gamerCamila.plano = PlanoAssinatura("PRATA", 9.90, 3)
+    gamerCamila.plano = PlanoAssinatura("PRATA", 9.90, 3, 0.5)
 
     gamerCamila.alugaJogo(jogoResidentVillage, periodo)
     gamerCamila.alugaJogo(jogoSpider, periodo)
@@ -40,5 +40,7 @@ fun main() {
     gamerCamila.recomendar(7)
 
     println(gamerCamila)
-    println(gamerCamila.jogosAlugados)
+
+    var aluguel1 = gamerCamila.alugaJogo(jogoResidentVillage, periodo)
+    print(aluguel1)
 }
