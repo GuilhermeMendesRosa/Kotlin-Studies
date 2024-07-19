@@ -3,7 +3,7 @@ package br.com.alura.alugames.modelo
 import java.util.*
 import kotlin.random.Random
 
-data class Gamer(var nome: String, var email: String) {
+data class Gamer(var nome: String, var email: String) : Recomendavel {
     var dataNascimento: String? = null
     var usuario: String? = null
         set(value) {
@@ -14,9 +14,17 @@ data class Gamer(var nome: String, var email: String) {
         }
     var idInterno: String? = null
         private set
-    var plano = Plano("BRONZE")
+    var plano: Plano = PlanoAvulso("BRONZE")
     val jogosBuscados = mutableListOf<Jogo?>()
     val jogosAlugados = mutableListOf<Aluguel>()
+    val notas = mutableListOf<Int>()
+
+    override val media: Double
+        get() = notas.average()
+
+    override fun recomendar(nota: Int) {
+        notas.add(nota)
+    }
 
     init {
         validarEmail()
@@ -34,7 +42,7 @@ data class Gamer(var nome: String, var email: String) {
     }
 
     override fun toString(): String {
-        return "Gamer(" + nome + ", " + email + "," + idInterno + ")"
+        return "Gamer(" + nome + ", " + email + "," + idInterno + ", " + media + ")"
     }
 
     fun criarIdInterno() {
@@ -58,10 +66,10 @@ data class Gamer(var nome: String, var email: String) {
         return aluguel
     }
 
-    fun jogosDoMes(mes:Int): List<Jogo> {
+    fun jogosDoMes(mes: Int): List<Jogo> {
         return jogosAlugados
-            .filter { aluguel ->  aluguel.periodo.dataInicial.monthValue == mes}
-            .map { aluguel ->  aluguel.jogo}
+            .filter { aluguel -> aluguel.periodo.dataInicial.monthValue == mes }
+            .map { aluguel -> aluguel.jogo }
     }
 
     companion object {
