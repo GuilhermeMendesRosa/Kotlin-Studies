@@ -34,7 +34,7 @@ fun main() {
     val gson = GsonBuilder().excludeFieldsWithoutExposeAnnotation().create()
     val serializacao = gson.toJson(gamerCamila.jogosRecomendados)
 
-    val arquivo = File("jogosRecomendados.json")
+    val arquivo = File("${gamerCamila.nome.lowercase()}.json")
     arquivo.writeText(serializacao)
     println(arquivo.absolutePath)
 
