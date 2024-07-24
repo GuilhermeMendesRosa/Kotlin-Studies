@@ -1,5 +1,6 @@
 package br.com.alura.alugames.dados
 
+import br.com.alura.alugames.modelo.Jogo
 import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.SQLException
@@ -13,4 +14,5 @@ object Banco {
             null
         }
     }
+
 }
