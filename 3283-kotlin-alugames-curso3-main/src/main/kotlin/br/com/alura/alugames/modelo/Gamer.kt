@@ -1,20 +1,19 @@
 package br.com.alura.alugames.modelo
 
-import java.time.LocalDate
-import java.util.Scanner
+import java.util.*
 import kotlin.random.Random
 
-data class Gamer(var nome:String, var email:String): Recomendavel {
-    var dataNascimento:String? = null
-    var usuario:String? = null
+data class Gamer(var nome: String, var email: String) : Recomendavel {
+    var dataNascimento: String? = null
+    var usuario: String? = null
         set(value) {
             field = value
-            if(idInterno.isNullOrBlank()) {
+            if (idInterno.isNullOrBlank()) {
                 criarIdInterno()
             }
         }
     var id = 0
-    var idInterno:String? = null
+    var idInterno: String? = null
         private set
     var plano: Plano = PlanoAvulso("BRONZE")
     val jogosBuscados = mutableListOf<Jogo?>()
@@ -34,7 +33,7 @@ data class Gamer(var nome:String, var email:String): Recomendavel {
         jogosRecomendados.add(jogo)
     }
 
-    constructor(nome: String, email: String, dataNascimento:String, usuario:String, id: Int = 0):
+    constructor(nome: String, email: String, dataNascimento: String?, usuario: String?, id: Int = 0) :
             this(nome, email) {
         this.dataNascimento = dataNascimento
         this.usuario = usuario
@@ -83,10 +82,10 @@ data class Gamer(var nome:String, var email:String): Recomendavel {
         return aluguel
     }
 
-    fun jogosDoMes(mes:Int): List<Jogo> {
+    fun jogosDoMes(mes: Int): List<Jogo> {
         return jogosAlugados
-            .filter { aluguel ->  aluguel.periodo.dataInicial.monthValue == mes}
-            .map { aluguel ->  aluguel.jogo}
+            .filter { aluguel -> aluguel.periodo.dataInicial.monthValue == mes }
+            .map { aluguel -> aluguel.jogo }
     }
 
     companion object {
@@ -106,7 +105,7 @@ data class Gamer(var nome:String, var email:String): Recomendavel {
 
                 return Gamer(nome, email, nascimento, usuario)
             } else {
-                return Gamer (nome, email)
+                return Gamer(nome, email)
             }
 
         }
