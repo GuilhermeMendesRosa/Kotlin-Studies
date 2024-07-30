@@ -5,11 +5,11 @@ import javax.persistence.*
 @Entity
 @Table(name = "gamers")
 open class GamerEntity(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Int = 0,
     var nome: String = "Nome do Gamer",
     var email: String = "email@email.com",
     val dataNascimento: String? = null,
-    val usuario: String? = null
+    val usuario: String? = null,
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Int = 0
 ) {
 }

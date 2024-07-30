@@ -19,18 +19,4 @@ class JogosDAO(manager: EntityManager) : DAO<Jogo, JogoEntity>(manager, JogoEnti
         )
     }
 
-    override fun getLista(): List<Jogo> {
-        val query = manager.createQuery("FROM JogoEntity", JogoEntity::class.java)
-        return query.resultList.map { jogoEntity ->
-            Jogo(
-                jogoEntity.titulo,
-                jogoEntity.capa,
-                jogoEntity.preco,
-                jogoEntity.descricao,
-                jogoEntity.id
-            )
-        }
-    }
-
-
 }
