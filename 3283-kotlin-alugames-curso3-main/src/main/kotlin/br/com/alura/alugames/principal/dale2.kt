@@ -13,9 +13,9 @@ fun main() {
         0.99,
         "Uma aventura pós-apocalíptica de sobrevivência em um mundo infestado por zumbis e facções em conflito."
     )
-    jogosDAO.adicionarJogo(jogo)
+    jogosDAO.adicionar(jogo)
 
-    val listaJogos: List<Jogo> = jogosDAO.getJogos()
+    val listaJogos: List<Jogo> = jogosDAO.getLista()
     println(listaJogos)
 
 

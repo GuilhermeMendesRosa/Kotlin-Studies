@@ -1,7 +1,6 @@
 package br.com.alura.alugames.dados
 
 import br.com.alura.alugames.modelo.Gamer
-import br.com.alura.alugames.modelo.Jogo
 import javax.persistence.EntityManager
 
 class GamerDAO(val manager: EntityManager) {
@@ -16,5 +15,12 @@ class GamerDAO(val manager: EntityManager) {
                 gamerEntity.id
             )
         }
+    }
+
+    fun adicionarGamer(gamer: Gamer) {
+        val entity = GamerEntity(gamer.id, gamer.nome, gamer.email, gamer.dataNascimento, gamer.usuario)
+        manager.transaction.begin()
+        manager.persist(entity)
+        manager.transaction.commit()
     }
 }
