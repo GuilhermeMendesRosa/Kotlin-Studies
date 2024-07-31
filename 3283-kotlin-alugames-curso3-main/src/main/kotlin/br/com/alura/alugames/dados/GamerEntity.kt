@@ -10,6 +10,8 @@ open class GamerEntity(
     val dataNascimento: String? = null,
     val usuario: String? = null,
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Int = 0
+    val id: Int = 0,
+    @ManyToOne
+    val plano: PlanoEntity = PlanoAvulsoEntity()
 ) {
 }
